@@ -56,13 +56,13 @@ class MainActivity : ComponentActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val recipes =  mutableStateListOf<Recipe>()
+        loadRecipeFolder(recipes)
         setContent {
-            val recipes = remember { mutableStateListOf<Recipe>() }
-            loadRecipeFolder(recipes = recipes)
             MainContent(recipes = recipes) {
                 loadSavedFolder()
                     ?.createRecipeFile(recipeName = it, contentResolver)
-                    ?.let {recipe -> recipes += recipe }
+                    ?.let { recipe -> recipes += recipe }
             }
         }
     }
@@ -71,11 +71,15 @@ class MainActivity : ComponentActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     private fun loadRecipeFolder(recipes: SnapshotStateList<Recipe>) {
         recipes.clear()
-        loadSavedFolder()?.loadRecipes(recipes)
-            ?: registerForActivityResult(ActivityResultContracts.OpenDocumentTree()) { uri ->
+        try {
+            loadSavedFolder()?.loadRecipes(recipes)
+                ?: throw SecurityException("No folder saved, thus not permissions available")
+        } catch (e: SecurityException) {
+            registerForActivityResult(ActivityResultContracts.OpenDocumentTree()) { uri ->
                 uri?.apply { persistPermissions() }
                     ?.loadRecipes(recipes)
             }.launch(loadSavedFolder())
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -136,12 +140,12 @@ class MainActivity : ComponentActivity() {
 
         // TODO constant for folder
         getPreferences(Context.MODE_PRIVATE).edit()
-            .putString("folder", this.toString())
+            .putString("recipeFolder", this.toString())
             .apply()
     }
 
     private fun loadSavedFolder() = getPreferences(Context.MODE_PRIVATE)
-        .getString("folder", null)
+        .getString("recipeFolder", null)
         ?.let { Uri.parse(it) }
 }
 
