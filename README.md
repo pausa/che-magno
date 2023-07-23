@@ -3,9 +3,10 @@ An app to collect recipes and figure out what to eat.
 
 I like to cook, but I always end up eating the same stuff. Having all the recipes I know in a simple list and being able to shuffle them, helps me a lot. This is really a simple list of names, nothing more. I think there are better apps to keep track of recipes, but I personally use a paper notebook.
 
-![alphabetic sort](./docs/Screenshot_1.jpg)
-![random sort](./docs/Screenshot_2.jpg)
-![add recipe](./docs/Screenshot_3.jpg)
+<img src="./docs/Screenshot_1.jpg" width="480"/>
+<img src="./docs/Screenshot_2.jpg" width="480"/>
+<img src="./docs/Screenshot_3.jpg" width="480"/>
+
 
 # Features
 - Sort recipes alphabetically

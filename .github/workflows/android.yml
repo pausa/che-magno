@@ -1,0 +1,31 @@
+name: Android CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: gradle
+
+    - uses: sparkfabrik/android-build-action@v1.5.0
+      with:
+        project-path: .
+        output-path: che-magno.apk
+    - name: Upload artifact
+      uses: actions/upload-artifact@v3.1.2
+      with:
+        name: che-magno.apk
+        path: che-magno.apk
