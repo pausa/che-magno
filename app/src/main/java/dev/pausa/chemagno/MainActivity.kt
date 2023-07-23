@@ -23,18 +23,24 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Casino
 import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material.icons.filled.SortByAlpha
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.LocalContentColor
+import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
@@ -162,13 +168,13 @@ fun MainContent(
             topBar = {
                 TopAppBar(
                     title = { Text("Che magno?") },
-                    //colors = TopAppBarDefaults.largeTopAppBarColors(containerColor = scheme.primaryContainer),
+                    colors = TopAppBarDefaults.largeTopAppBarColors(),
                     // TODO refactor out
                     actions = {
                         IconButton(onClick = {
                             recipes.sortRecipes().also { resetList = true }
                         }) {
-                            Icon(imageVector = Icons.Default.List, contentDescription = null)
+                            Icon(imageVector = Icons.Default.SortByAlpha, contentDescription = null)
                         }
                     }
                 )
@@ -253,7 +259,7 @@ fun ShuffleRecipesActionButton(action: () -> Unit) {
         onClick = { action.invoke() },
         modifier = Modifier.defaultMinSize()
     ) {
-        Icon(imageVector = Icons.Default.Refresh, contentDescription = null)
+        Icon(imageVector = Icons.Default.Casino, contentDescription = null)
     }
 }
 
