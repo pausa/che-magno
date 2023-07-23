@@ -22,5 +22,5 @@ jobs:
 
     - uses: sparkfabrik/android-build-action@v1.5.0
       with:
-        project-path: app
+        project-path: .
         output-path: che-magno.apk
