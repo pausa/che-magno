@@ -24,3 +24,8 @@ jobs:
       with:
         project-path: .
         output-path: che-magno.apk
+    - name: Upload artifact
+      uses: actions/upload-artifact@v3.1.2
+      with:
+        name: che-magno.apk
+        path: che-magno.apk
